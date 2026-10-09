@@ -1,5 +1,6 @@
 declare const atob: any;
 declare const Buffer: any;
+declare const process: any;
 import {
   YouCamSkinAnalysisResult,
   YouCamApiConfig,
@@ -250,10 +251,10 @@ export class YouCamClient {
 
   constructor() {
     this.config = {
-      apiKey: "sk-g9i5krYJuxPkYE56puQcoY_qHGjEowv1Q15SFWWurpUELxkQr6B6MSIRA_EcKFG5",
-      apiSecret: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJo1qjHNIwOJtuOF81wxNWSR29potSZ2yEenAWYiB/HaFWcNFK5tCqfLFd5+5iWGVIstE482MreIdNySwDwsQXikVcVuqrOFem0jpU54QMw8Xuz7rd444YMTxMSp7c8fK+VdPO8cpZ6ipNee3/+soJdxNEQxVZEr6ejtEA1Y881wIDAQAB",
-      baseUrl: "https://yce-api-01.makeupar.com/s2s/v2.0",
-      useMockFallback: false, // Default to LIVE Perfect Corp AI endpoints
+      apiKey: (typeof process !== "undefined" && process.env?.YOU_CAM_API_KEY) || "",
+      apiSecret: (typeof process !== "undefined" && process.env?.YOU_CAM_SECRET_KEY) || "",
+      baseUrl: (typeof process !== "undefined" && process.env?.YOU_CAM_BASE_URL) || "https://yce-api-01.makeupar.com/s2s/v2.0",
+      useMockFallback: !(typeof process !== "undefined" && process.env?.YOU_CAM_API_KEY),
     };
   }
 
